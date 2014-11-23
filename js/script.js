@@ -26,6 +26,13 @@ html.addEventListener("mousemove", function (event) {
 }, false);
 
 // Click on the teaser section, and it goes p0o0f!
-$("#teaser").addEventListener("click", function (event) {
-  $("body").removeChild($("#teaser"));
+var teaser = $("#teaser");
+teaser.addEventListener("click", function (event) {
+  TweenLite.to(teaser, 0.5, {
+    opacity: 0,
+    delay: 0.1,
+    onComplete: function () {
+      $("body").removeChild(teaser);
+    }
+  });
 });
