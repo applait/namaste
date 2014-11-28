@@ -39,16 +39,21 @@ hr {
   border:             1px solid;
   border-color:       #aaa transparent #fff;
 }
+body > section {
+  width:              100%;
+  height:             100%;
+  display:            none;
+  position:           absolute;
+  background:         #fff;
+}
 
 
 /* 1. ID & Class */
 #teaser {
-  width:              100%;
-  height:             100%;
+  display:            block;
   cursor:             pointer;
-  position:           absolute;
-  background:         #fff;
 }
+.focus { display:     block; }
 #peek {
   width:              20rem;
   height:             10rem;

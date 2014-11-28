@@ -19,6 +19,9 @@ var logo = $("#peek")
 var height = document.documentElement.clientHeight
   , width  = document.documentElement.clientWidth;
 
+// Used later to decide Scroll Threshold
+var scrollDelta = 0;
+
 // Here's where the magic happens... look away!
 html.addEventListener("mousemove", function (event) {
   logo.style.top = (height/2 - event.clientY)/50 + "px";
@@ -33,6 +36,44 @@ teaser.addEventListener("click", function (event) {
     delay: 0.1,
     onComplete: function () {
       $("body").removeChild(teaser);
+
+      // Set the first chapter to the view
+      setChapter(true);
+
+      // Set the event listener to process scroll events
+      window.addEventListener("wheel", function (event) {
+        if ((scrollDelta * event.deltaY) < 0)
+          scrollDelta = 0;
+
+        scrollDelta += event.deltaY;
+        if(scrollDelta > 40) setChapter(true);
+        if(scrollDelta < -40) setChapter(false);
+      }, false);
     }
   });
 });
+
+
+// Shitz get real with the view-chapters
+// To start with, the container to put things in:
+var setChapter = function (isForward) {
+  var activeChapter = $(".focus")
+    , chapterNumber = "";
+
+  if (activeChapter) {
+    chapterNumber = activeChapter.getAttribute("id");
+  } else { chapterNumber = 0 }
+
+  if (isForward) {
+    chapterNumber++;
+  } else {
+    chapterNumber--;
+  }
+
+  if (chapterNumber >= 1 && chapterNumber <= 3) {
+    if (activeChapter) activeChapter.classList.remove("focus");
+    var target = document.getElementById("" + chapterNumber);
+    target.classList.add("focus");
+    scrollDelta = 0;
+  }
+}
