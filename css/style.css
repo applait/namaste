@@ -27,17 +27,15 @@ body {
   padding:            0;
   background:         #eee;
   min-width:          320px;
-  font-family:        "Merriweather", Sans-serif;
+  font-family:        "Exo";
+  overflow:           hidden;
   -webkit-transform:  translateZ(0);
   transform:          translateZ(0);
 }
 a {
+  color:              #c00;
   outline:            0;
   text-decoration:    none;
-}
-hr {
-  border:             1px solid;
-  border-color:       #aaa transparent #fff;
 }
 body > section {
   width:              100%;
@@ -46,6 +44,15 @@ body > section {
   position:           absolute;
   background:         #fff;
 }
+header, footer {
+  width:              100%;
+  display:            none;
+  position:           absolute;
+  text-align:         center;
+  z-index:            1;
+}
+header { top:         2rem; }
+footer { bottom:      2rem; }
 
 
 /* 1. ID & Class */
@@ -65,7 +72,48 @@ body > section {
   font-family:        "Alegreya";
   text-shadow:        0 0 1px #000;
 }
+#logo {
+  width:              8rem;
+  height:             8rem;
+  margin-bottom:      1rem;
+}
+#masthead hr {
+  width:              50%;
+  margin:             auto;
+  position:           relative;
+  border:             1px solid;
+  border-color:       #111 transparent transparent;
+  top:                2.125rem;
+  box-shadow:         0 0 2px #999;
+  z-index:            0;
+}
+#masthead div {
+  height:             2rem;
+  width:              2rem;
+  display:            inline-block;
+  position:           relative;
+  margin:             1rem;
+  background:         #fff;
+  cursor:             pointer;
+  border-radius:      50%;
+  transition:         all 500ms ease;
+  box-shadow:         inset 0 0 0 1px #111, inset 0 0 0 4px #fff;
+  z-index:            1;
+}
+.chapter .pane {
+  height:             10rem;
+  margin:             calc(60vh - 5rem) auto;
+  text-align:         center;
+  font-size:          2rem;
+  font-weight:        thin;
+}
 
 /* 2. Pseudoclass */
+a:hover {
+  border-bottom:      1px solid #c00;
+}
+#masthead div.active {
+    background:       #111;
+}
 
 /* 2. Media Queries */

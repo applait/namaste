@@ -29,28 +29,34 @@ html.addEventListener("mousemove", function (event) {
 }, false);
 
 // Click on the teaser section, and it goes p0o0f!
+// Leaving the directive to setup the stage async.
 var teaser = $("#teaser");
 teaser.addEventListener("click", function (event) {
   TweenLite.to(teaser, 0.5, {
     opacity: 0,
     delay: 0.1,
-    onComplete: function () {
-      $("body").removeChild(teaser);
-
-      // Set the first chapter to the view
-      setChapter(true);
-
-      // Set the event listener to process scroll events
-      window.addEventListener("wheel", function (event) {
-        if (Date.now() - timeDelta > 1000) {
-          timeDelta = Date.now();
-          if(event.deltaY > 0) setChapter(true);
-          if(event.deltaY < 0) setChapter(false);
-        }
-      }, false);
-    }
+    onComplete: setupStage
   });
 });
+
+// post-teaser routines to set up the main content
+var setupStage = function (args) {
+  $("body").removeChild(teaser);
+  $("header").style.display = "block";
+  $("footer").style.display = "block";
+
+  // Set the first chapter to the view
+  setChapter(true);
+
+  // Set the event listener to process scroll events
+  window.addEventListener("wheel", function (event) {
+    if (Date.now() - timeDelta > 750) {
+      timeDelta = Date.now();
+      if(event.deltaY > 0) setChapter(true);
+      if(event.deltaY < 0) setChapter(false);
+    }
+  }, false);
+}
 
 
 // Shitz get real with the chapter switch routines
@@ -74,4 +80,16 @@ var setChapter = function (next) {
     target.classList.add("focus");
     scrollDelta = 0;
   }
+}
+
+// Pseudo-navigation bar switches
+var elements = document.querySelectorAll("#masthead div");
+var toggleSwitch = function (event) {
+  var element = document.querySelector("#masthead div.active");
+  element.classList.remove("active");
+  event.target.classList.add("active");
+}
+for (var i in elements) {
+  if (i == "item") break;
+  elements[i].addEventListener("click", toggleSwitch, false);
 }
