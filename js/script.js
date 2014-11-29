@@ -41,55 +41,87 @@ teaser.addEventListener("click", function (event) {
 
 // post-teaser routines to set up the main content
 var setupStage = function (args) {
+
+  // One time calls; no strings attached (figuratively)
   $("body").removeChild(teaser);
   $("header").style.display = "block";
   $("footer").style.display = "block";
 
   // Set the first chapter to the view
-  setChapter(true);
+  setChapter(1);
 
   // Set the event listener to process scroll events
   window.addEventListener("wheel", function (event) {
     if (Date.now() - timeDelta > 750) {
       timeDelta = Date.now();
-      if(event.deltaY > 0) setChapter(true);
-      if(event.deltaY < 0) setChapter(false);
+      if(event.deltaY > 0) setChapter("next");
+      if(event.deltaY < 0) setChapter("prev");
     }
   }, false);
+
+  // Set the event listener to process navigation events
+  var elements = document.querySelectorAll("#masthead div");
+  for (var i in elements) {
+    if (i == "item") break;
+    elements[i].addEventListener("click", toggleSwitch, false);
+  }
 }
 
 
 // Shitz get real with the chapter switch routines
-var setChapter = function (next) {
+var setChapter = function (index) {
   var activeChapter = $(".focus")
     , chapterNumber = "";
 
-  if (activeChapter) {
-    chapterNumber = activeChapter.getAttribute("id");
-  } else { chapterNumber = 0 }
+  if (Number.isInteger(parseInt(index, 10))) {
+    chapterNumber = parseInt(index, 10);
+  } else if (typeof index === "string") {
+    // Check if any chapter is set to start with
+    // Except for the first time, it's always set
+    if (activeChapter) {
+      chapterNumber = activeChapter.getAttribute("id");
+    } else { chapterNumber = 0; }
 
-  if (next) {
-    chapterNumber++;
-  } else {
-    chapterNumber--;
-  }
+    if (index === "next") {
+      // If asked to go next, increase counter
+      chapterNumber++;
+    } else if (index === "prev") {
+      // If asked to go prev, decrease counter
+      chapterNumber--;
+    } else return;
+  } else return;
 
+  // If the final value of the chapterNumber is within limits:
   if (chapterNumber >= 1 && chapterNumber <= 3) {
+    // Unset the current active chapter
     if (activeChapter) activeChapter.classList.remove("focus");
+    // Set the target active chapter
     var target = document.getElementById("" + chapterNumber);
     target.classList.add("focus");
-    scrollDelta = 0;
+    toggleSwitch(chapterNumber)
   }
 }
 
-// Pseudo-navigation bar switches
-var elements = document.querySelectorAll("#masthead div");
-var toggleSwitch = function (event) {
+// Pseudo-navigation bar switches, extened to handle chapters
+var toggleSwitch = function (cue) {
   var element = document.querySelector("#masthead div.active");
   element.classList.remove("active");
-  event.target.classList.add("active");
-}
-for (var i in elements) {
-  if (i == "item") break;
-  elements[i].addEventListener("click", toggleSwitch, false);
+
+  // Select the target element
+  var target;
+
+  // If the queue is a number, assign it as integer
+  if (Number.isInteger(parseInt(cue, 10))) {
+    target = $("#for" + parseInt(cue, 10));
+
+    // Add active class to the target
+    target.classList.add("active");
+  } else if (typeof cue === "object") {
+    target = cue.target;
+
+    // Add active class to the target
+    target.classList.add("active");
+    // Set the correct chapter
+    setChapter(target.getAttribute("id").split("for")[1]);
+  } else return;
 }
