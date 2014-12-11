@@ -14,6 +14,7 @@
 * {
   -moz-box-sizing:    border-box;
   box-sizing:         border-box;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
   font-size:          16px;
@@ -118,12 +119,20 @@ a:hover {
 /* 2. Media Queries */
 @media screen and (max-width: 960px) {
   html { font-size: 12px; }
-  #masthead hr { top: 3.125rem; }
-  #masthead div { height: 4rem; width: 4rem; margin: 1rem 2rem; }
+  #masthead hr { top: 2.725rem; }
+  #masthead div { height: 3rem; width: 3rem; margin: 1rem 2rem; }
 }
 @media screen and (max-width: 640px) {
   html { font-size: 8px; }
-  #masthead hr { width: 80%; }
+  #masthead hr { width: 80%; top: 3.125rem; }
+  #masthead div { height: 4rem; width: 4rem; }
+}
+@media screen and (max-height: 480px) {
+  #logo { width: 6rem; height: 6rem; }
+  .chapter .pane { margin: 50vh auto 0; }
+}
+@media screen and (max-height: 240px) {
+  #logo { width: 4rem; height: 4rem; }
 }
 @media screen and (orientation: portrait) {
   header { top: 16vh; }
