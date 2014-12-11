@@ -6,6 +6,13 @@ var $$ = function (selector) {
   return document.querySelectorAll(selector);
 }
 
+var on = function (events, element, handler) {
+  events = events.split(" ");
+  for (var i in events) {
+    element.addEventListener(events[i], handler, false);
+  }
+}
+
 // Minimalist landing page with semi interactive RepelJS
 // https://gist.github.com/debloper/c8fd6c328d471fbec6e9
 // =====================================================
@@ -23,15 +30,16 @@ var height = document.documentElement.clientHeight
 var timeDelta = Date.now();
 
 // Here's where the magic happens... look away!
-html.addEventListener("mousemove", function (event) {
-  logo.style.top = (height/2 - event.clientY)/50 + "px";
-  logo.style.left = (width/2 - event.clientX)/50 + "px";
+on("mousemove touchmove", html, function (event) {
+  var action = (event.type === "touchmove") ? event.touches[0] : event;
+  logo.style.top = (height/2 - action.clientY)/50 + "px";
+  logo.style.left = (width/2 - action.clientX)/50 + "px";
 }, false);
 
 // Click on the teaser section, and it goes p0o0f!
 // Leaving the directive to setup the stage async.
 var teaser = $("#teaser");
-teaser.addEventListener("click", function (event) {
+on("click touchend", teaser, function (event) {
   TweenLite.to(teaser, 0.5, {
     opacity: 0,
     delay: 0.1,
