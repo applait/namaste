@@ -118,9 +118,12 @@ a:hover {
 /* 2. Media Queries */
 @media screen and (max-width: 960px) {
   html { font-size: 12px; }
+  #masthead hr { top: 3.125rem; }
+  #masthead div { height: 4rem; width: 4rem; margin: 1rem 2rem; }
 }
 @media screen and (max-width: 640px) {
   html { font-size: 8px; }
+  #masthead hr { width: 80%; }
 }
 @media screen and (orientation: portrait) {
   header { top: 16vh; }
