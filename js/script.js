@@ -133,3 +133,11 @@ var toggleSwitch = function (cue) {
     setChapter(target.getAttribute("id").split("for")[1]);
   } else return;
 }
+
+// Sorry for the long post... here's a potato!
+console.log([
+  "HI DEVS, WELCOME TO",
+  "┌─┐┌─┐┌─┐┬  ┌─┐┬┌┬┐",
+  "├─┤├─┘├─┘│  ├─┤│ │ ",
+  "┴ ┴┴  ┴  ┴─┘┴ ┴┴ ┴ "
+].join("\n"));
