@@ -72,6 +72,21 @@ footer { bottom:      2rem; }
   font-family:        "Alegreya";
   text-shadow:        0 0 1px #000;
 }
+#cta {
+  width:              5rem;
+  height:             5rem;
+  display:            block;
+  position:           absolute;
+  text-align:         center;
+  margin:             calc(80vh) 0 0 calc(50vw - 2.5rem);
+  font-size:          2rem;
+  font-family:        "Alegreya";
+  line-height:        4.5rem;
+  text-shadow:        0 0 1px #000;
+  border:             2px solid #000;
+  border-radius:      50px;
+  transition:         all 1s ease-in;
+}
 #logo {
   width:              8rem;
   height:             8rem;
@@ -114,6 +129,11 @@ a:hover {
 }
 #masthead div.active {
     background:       #111;
+}
+#cta:hover {
+  background-color:   #000;
+  color:              #fff;
+  transform:          translateY(-0.5rem);
 }
 
 /* 2. Media Queries */
